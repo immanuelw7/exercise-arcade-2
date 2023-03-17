@@ -25,26 +25,30 @@ class MyGame(arcade.Window):
     def setup(self):
         for i in range(20):
             rayon = random.randint(10, 50)
-            c_x = random.randint(rayon, SCREEN_WIDTH - rayon)
-            c_y = random.randint(rayon, SCREEN_HEIGHT - rayon)
-            color = (random.choice(les_couleurs))
-            circle = Circle(rayon, c_x, c_y, color)
-            self.listt_circles.append(circle)
+            c_x = random.randint(0 + rayon, SCREEN_WIDTH - rayon)
+            c_y = random.randint(0 + rayon, SCREEN_HEIGHT - rayon)
+            color = random.choice(les_couleurs)
+            self.circles.append(Circle(c_x, c_y, color, rayon))
+
+
+
+
     def on_draw(self):
         arcade.start_render()
-
-        for circle in self.listt_circles:
+        for circle in self.circles:
             circle.draw()
 
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
-            for circle in self.listt_circles:
+            for circle in self.circles:
                 if circle.c_x - circle.rayon <= x <= circle.c_x + circle.rayon and circle.c_y - circle.rayon <= y <= circle.c_y + circle.rayon:
-                    self.listt_circles.remove(circle)
+
+                    self.circles.remove(circle)
 
         elif button == arcade.MOUSE_BUTTON_RIGHT:
-            for circle in self.listt_circles:
+            for circle in self.circles:
                 if circle.c_x - circle.rayon <= x <= circle.c_x + circle.rayon and circle.c_y - circle.rayon <= y <= circle.c_y + circle.rayon:
+
                     circle.color = random.choice(les_couleurs)
                     break
 
