@@ -1,57 +1,59 @@
+#Enoch immanuel wang
+#import les modules
 import arcade
 import random
-
+#taille de l'écran
 SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 800
+#choisir les couleurs avec arcade
 les_couleurs = [arcade.color.AERO_BLUE, arcade.color.AFRICAN_VIOLET, arcade.color.AIR_FORCE_BLUE, arcade.color.AQUA, arcade.color.BABY_BLUE_EYES, arcade.color.BANANA_YELLOW, arcade.color.BLIZZARD_BLUE, arcade.color.BLUEBERRY]
 
 
-class Circle:
-    def __init__(self, c_x, c_y, rayon, color):
+#première classe pour les cerlces et ses propriétés
+class Cercle:
+    def __init__(self, rayon, c_x, c_y, color):
+        self.rayon = rayon
         self.c_x = c_x
         self.c_y = c_y
-        self.rayon = rayon
         self.color = color
-
+    #créer une fonction pour dessiner les cercle remplis
     def draw(self):
         arcade.draw_circle_filled(self.c_x, self.c_y, self.rayon, self.color)
 
-
+#crée une fonction pour le window 
 class MyGame(arcade.Window):
     def __init__(self):
-        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercice #2?????????????????????????")
-        self.circles = []
-
+        super().__init__(SCREEN_WIDTH, SCREEN_HEIGHT, "Exercice #1")
+        self.l_cercle = []
+    #créer une fonction setup qui créé le window de base
     def setup(self):
-        for i in range(20):
+        for _ in range(20):
             rayon = random.randint(10, 50)
             c_x = random.randint(0 + rayon, SCREEN_WIDTH - rayon)
             c_y = random.randint(0 + rayon, SCREEN_HEIGHT - rayon)
             color = random.choice(les_couleurs)
-            self.circles.append(Circle(c_x, c_y, color, rayon))
-
-
-
-
+            self.l_cercle.append(Cercle(rayon, c_x, c_y, color))
+    #fonction pour render 
     def on_draw(self):
         arcade.start_render()
-        for circle in self.circles:
-            circle.draw()
-
+        
+        for cercle in self.l_cercle:
+            cercle.draw()
+    #créer une fonction pour les changements effectuers lors des clicks
     def on_mouse_press(self, x, y, button, modifiers):
         if button == arcade.MOUSE_BUTTON_LEFT:
-            for circle in self.circles:
-                if circle.c_x - circle.rayon <= x <= circle.c_x + circle.rayon and circle.c_y - circle.rayon <= y <= circle.c_y + circle.rayon:
-
-                    self.circles.remove(circle)
+            for cercle in self.l_cercle:
+                if cercle.c_x - cercle.rayon <= x <= cercle.c_x + cercle.rayon and cercle.c_y -\
+                        cercle.rayon <= y <= cercle.c_y + cercle.rayon:
+                    self.l_cercle.remove(cercle)
 
         elif button == arcade.MOUSE_BUTTON_RIGHT:
-            for circle in self.circles:
-                if circle.c_x - circle.rayon <= x <= circle.c_x + circle.rayon and circle.c_y - circle.rayon <= y <= circle.c_y + circle.rayon:
+            for cercle in self.l_cercle:
+                if cercle.c_x - cercle.rayon <= x <= cercle.c_x + cercle.rayon and cercle.c_y -\
+                        cercle.rayon <= y <= cercle.c_y + cercle.rayon:
+                    cercle.color = random.choice(les_couleurs)
 
-                    circle.color = random.choice(les_couleurs)
-                   
-
+#fonction pour faire fonctionner le jeux
 def main():
     my_game = MyGame()
     my_game.setup()
