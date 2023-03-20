@@ -50,8 +50,7 @@ class MyGame(arcade.Window):
                 if circle.c_x - circle.rayon <= x <= circle.c_x + circle.rayon and circle.c_y - circle.rayon <= y <= circle.c_y + circle.rayon:
 
                     circle.color = random.choice(les_couleurs)
-                    break
-
+                   
 
 def main():
     my_game = MyGame()
